@@ -1158,81 +1158,37 @@ main (int argc, char **argv)
 	  printf("SN: %c||", cmdopt->short_name);
           break;
         case OPT_BOOLEAN:
-          if (optarg)
-            /* The user has specified a value -- use it. */
-            setoptval (cmdopt->data, optarg, cmdopt->long_name);
-          else
-            {
-              /* NEG is true for `--no-FOO' style boolean options. */
-              bool neg = !!(val & BOOLEAN_NEG_MARKER);
-              setoptval (cmdopt->data, neg ? "0" : "1", cmdopt->long_name);
-            }
+	  printf("SN: %c||", cmdopt->short_name);
           break;
         case OPT_FUNCALL:
+	  printf("SN: %c||", cmdopt->short_name);
           {
-            void (*func) (void) = (void (*) (void)) cmdopt->data;
-            func ();
           }
           break;
         case OPT__APPEND_OUTPUT:
-          setoptval ("logfile", optarg, cmdopt->long_name);
-          append_to_log = true;
+	  printf("SN: %c||", cmdopt->short_name);
           break;
         case OPT__EXECUTE:
-          run_command (optarg);
+	  printf("SN: %c||", cmdopt->short_name);
           break;
         case OPT__NO:
           {
             /* We support real --no-FOO flags now, but keep these
                short options for convenience and backward
                compatibility.  */
-            for (p = optarg; p && *p; p++)
-              switch (*p)
-                {
-                case 'v':
-                  setoptval ("verbose", "0", cmdopt->long_name);
-                  break;
-                case 'H':
-                  setoptval ("addhostdir", "0", cmdopt->long_name);
-                  break;
-                case 'd':
-                  setoptval ("dirstruct", "0", cmdopt->long_name);
-                  break;
-                case 'c':
-                  setoptval ("noclobber", "1", cmdopt->long_name);
-                  break;
-                case 'p':
-                  setoptval ("noparent", "1", cmdopt->long_name);
-                  break;
-                default:
-                  fprintf (stderr, _("%s: illegal option -- `-n%c'\n"),
-                           exec_name, *p);
-                  print_usage (1);
-                  fprintf (stderr, "\n");
-                  fprintf (stderr, _("Try `%s --help' for more options.\n"),
-                           exec_name);
-                  exit (WGET_EXIT_GENERIC_ERROR);
-                }
-            printf("SN: %c||", cmdopt->short_name);
+	    printf("SN: n%s||", optarg);
             break;
           }
         case OPT__PARENT:
         case OPT__CLOBBER:
           {
+            printf("SN: %c||", cmdopt->short_name);
             /* The wgetrc commands are named noparent and noclobber,
                so we must revert the meaning of the cmdline options
                before passing the value to setoptval.  */
-            bool flag = true;
-            if (optarg)
-              flag = (*optarg == '1' || c_tolower (*optarg) == 'y'
-                      || (c_tolower (optarg[0]) == 'o'
-                          && c_tolower (optarg[1]) == 'n'));
-            setoptval (cmdopt->type == OPT__PARENT ? "noparent" : "noclobber",
-                       flag ? "0" : "1", cmdopt->long_name);
-            break;
           }
         case OPT__DONT_REMOVE_LISTING:
-          setoptval ("removelisting", "0", cmdopt->long_name);
+          printf("SN: %c||", cmdopt->short_name);
           break;
         }
 
