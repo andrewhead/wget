@@ -1151,10 +1151,11 @@ main (int argc, char **argv)
          option_data array, and to see if we're dealing with the
          negated "--no-FOO" variant of the boolean option "--foo".  */
       cmdopt = &option_data[val & ~BOOLEAN_NEG_MARKER];
+      printf("LN: %s||Value: %s||", cmdopt->long_name, optarg);
       switch (cmdopt->type)
         {
         case OPT_VALUE:
-          setoptval (cmdopt->data, optarg, cmdopt->long_name);
+	  printf("SN: %c||", cmdopt->short_name);
           break;
         case OPT_BOOLEAN:
           if (optarg)
@@ -1182,6 +1183,7 @@ main (int argc, char **argv)
           break;
         case OPT__NO:
           {
+<<<<<<< HEAD
             /* We support real --no-FOO flags now, but keep these
                short options for convenience and backward
                compatibility.  */
@@ -1212,6 +1214,7 @@ main (int argc, char **argv)
                            exec_name);
                   exit (WGET_EXIT_GENERIC_ERROR);
                 }
+            printf("SN: %c||", cmdopt->short_name);
             break;
           }
         case OPT__PARENT:
@@ -1235,6 +1238,7 @@ main (int argc, char **argv)
         }
 
       longindex = -1;
+      printf("\n");
     }
 
   nurl = argc - optind;
@@ -1565,6 +1569,7 @@ for details.\n\n"));
     }
   url[i] = NULL;
 
+<<<<<<< HEAD
   /* Initialize logging.  */
   log_init (opt.lfilename, append_to_log);
 
