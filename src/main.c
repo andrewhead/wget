@@ -1212,9 +1212,9 @@ main (int argc, char **argv)
         url[i] = rewritten;
       else
         url[i] = xstrdup (argv[optind]);
+      printf("URL: %s\n", url[i]);
     }
   url[i] = NULL;
-  printf("URL: %s\n", *url);
 
   cleanup ();
 
